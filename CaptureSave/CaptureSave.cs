@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -9,7 +10,6 @@ namespace CaptureSave
 
     public partial class CaptureSave : Form
     {
-        // DLL libraries used to manage hotkeys
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
         [DllImport("user32.dll")]
@@ -20,12 +20,14 @@ namespace CaptureSave
         private int screenWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width);
         private int screenHeight = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height);
 
+        private string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\img\\";
+
         public CaptureSave()
         {
             InitializeComponent();
             LoadResolution();
             LoadHotkey();
-            RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, 3, (int)Keys.S);
+            RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, 5, (int)Keys.S);
         }
 
         public void LoadResolution()
@@ -50,8 +52,6 @@ namespace CaptureSave
                         g.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
                     }
 
-                    string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\img\\";
-
                     System.IO.FileInfo file = new System.IO.FileInfo(filePath);
                     file.Directory.Create();
 
@@ -60,6 +60,17 @@ namespace CaptureSave
                 }
             }
             base.WndProc(ref m);
+        }
+
+        private void buttonOpenFolder_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(filePath))
+            {
+                System.Diagnostics.Process.Start(filePath);
+            } else
+            {
+                MessageBox.Show("Try to make screenshots first.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

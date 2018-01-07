@@ -33,6 +33,7 @@
             this.textScreenHeight = new System.Windows.Forms.TextBox();
             this.labelHotkey = new System.Windows.Forms.Label();
             this.textHotkey = new System.Windows.Forms.TextBox();
+            this.buttonOpenFolder = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelScreenResolution
@@ -79,11 +80,22 @@
             this.textHotkey.Size = new System.Drawing.Size(106, 20);
             this.textHotkey.TabIndex = 4;
             // 
+            // buttonOpenFolder
+            // 
+            this.buttonOpenFolder.Location = new System.Drawing.Point(129, 30);
+            this.buttonOpenFolder.Name = "buttonOpenFolder";
+            this.buttonOpenFolder.Size = new System.Drawing.Size(75, 64);
+            this.buttonOpenFolder.TabIndex = 5;
+            this.buttonOpenFolder.Text = "Open Folder";
+            this.buttonOpenFolder.UseVisualStyleBackColor = true;
+            this.buttonOpenFolder.Click += new System.EventHandler(this.buttonOpenFolder_Click);
+            // 
             // CaptureSave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(144, 111);
+            this.ClientSize = new System.Drawing.Size(219, 111);
+            this.Controls.Add(this.buttonOpenFolder);
             this.Controls.Add(this.textHotkey);
             this.Controls.Add(this.labelHotkey);
             this.Controls.Add(this.textScreenHeight);
@@ -104,6 +116,7 @@
         private System.Windows.Forms.TextBox textScreenHeight;
         private System.Windows.Forms.Label labelHotkey;
         private System.Windows.Forms.TextBox textHotkey;
+        private System.Windows.Forms.Button buttonOpenFolder;
     }
 }
 
