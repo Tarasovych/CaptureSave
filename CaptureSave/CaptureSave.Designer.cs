@@ -31,6 +31,8 @@
             this.labelScreenResolution = new System.Windows.Forms.Label();
             this.textScreenWidth = new System.Windows.Forms.TextBox();
             this.textScreenHeight = new System.Windows.Forms.TextBox();
+            this.labelHotkey = new System.Windows.Forms.Label();
+            this.textHotkey = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelScreenResolution
@@ -60,18 +62,36 @@
             this.textScreenHeight.Size = new System.Drawing.Size(50, 20);
             this.textScreenHeight.TabIndex = 2;
             // 
+            // labelHotkey
+            // 
+            this.labelHotkey.AutoSize = true;
+            this.labelHotkey.Location = new System.Drawing.Point(16, 57);
+            this.labelHotkey.Name = "labelHotkey";
+            this.labelHotkey.Size = new System.Drawing.Size(41, 13);
+            this.labelHotkey.TabIndex = 3;
+            this.labelHotkey.Text = "Hotkey";
+            // 
+            // textHotkey
+            // 
+            this.textHotkey.Enabled = false;
+            this.textHotkey.Location = new System.Drawing.Point(16, 74);
+            this.textHotkey.Name = "textHotkey";
+            this.textHotkey.Size = new System.Drawing.Size(106, 20);
+            this.textHotkey.TabIndex = 4;
+            // 
             // CaptureSave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 61);
+            this.ClientSize = new System.Drawing.Size(144, 111);
+            this.Controls.Add(this.textHotkey);
+            this.Controls.Add(this.labelHotkey);
             this.Controls.Add(this.textScreenHeight);
             this.Controls.Add(this.textScreenWidth);
             this.Controls.Add(this.labelScreenResolution);
             this.MaximizeBox = false;
             this.Name = "CaptureSave";
             this.Text = "CaptureSave";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CaptureSave_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -82,6 +102,8 @@
         private System.Windows.Forms.Label labelScreenResolution;
         private System.Windows.Forms.TextBox textScreenWidth;
         private System.Windows.Forms.TextBox textScreenHeight;
+        private System.Windows.Forms.Label labelHotkey;
+        private System.Windows.Forms.TextBox textHotkey;
     }
 }
 

@@ -1,12 +1,22 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace CaptureSave
 {
+
     public partial class CaptureSave : Form
     {
+        // DLL libraries used to manage hotkeys
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
+        [DllImport("user32.dll")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        const int MYACTION_HOTKEY_ID = 1;
+
         private int screenWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width);
         private int screenHeight = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height);
 
@@ -14,6 +24,8 @@ namespace CaptureSave
         {
             InitializeComponent();
             LoadResolution();
+            LoadHotkey();
+            RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, 3, (int)Keys.S);
         }
 
         public void LoadResolution()
@@ -22,9 +34,15 @@ namespace CaptureSave
             textScreenHeight.Text = screenHeight.ToString();
         }
 
-        private void CaptureSave_KeyDown(object sender, KeyEventArgs e)
+        public void LoadHotkey()
         {
-            if (e.Alt && e.KeyCode == Keys.S)
+            textHotkey.Text = Keys.Alt.ToString() + "+" + Keys.Shift.ToString() + "+" + Keys.S.ToString();
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == MYACTION_HOTKEY_ID)
+            {
                 using (Bitmap bitmap = new Bitmap(screenWidth, screenHeight))
                 {
                     using (Graphics g = Graphics.FromImage(bitmap))
@@ -40,7 +58,8 @@ namespace CaptureSave
                     string name = DateTimeOffset.Now.ToUnixTimeSeconds().ToString() + ".png";
                     bitmap.Save(filePath + name, ImageFormat.Png);
                 }
-            e.SuppressKeyPress = true;
+            }
+            base.WndProc(ref m);
         }
     }
 }
