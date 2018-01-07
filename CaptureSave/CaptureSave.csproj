@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2E526CB1-139E-43D1-93B7-CD2638240F7B}</ProjectGuid>
+    <ProjectGuid>{4248CDCA-AA57-4821-8DF0-B616D831375C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>CaptureSave</RootNamespace>
     <AssemblyName>CaptureSave</AssemblyName>
@@ -45,14 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="CaptureSave.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CaptureSave.Designer.cs">
+      <DependentUpon>CaptureSave.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CaptureSave.resx">
+      <DependentUpon>CaptureSave.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
