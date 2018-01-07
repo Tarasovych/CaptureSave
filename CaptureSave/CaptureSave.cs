@@ -55,7 +55,7 @@ namespace CaptureSave
                     System.IO.FileInfo file = new System.IO.FileInfo(filePath);
                     file.Directory.Create();
 
-                    string name = DateTimeOffset.Now.ToUnixTimeSeconds().ToString() + ".png";
+                    string name = DateTime.Now.ToFileTime() + ".png";
                     bitmap.Save(filePath + name, ImageFormat.Png);
                 }
             }
