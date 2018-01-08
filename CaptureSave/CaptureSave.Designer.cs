@@ -33,13 +33,15 @@
             this.labelScreenResolution = new System.Windows.Forms.Label();
             this.textScreenWidth = new System.Windows.Forms.TextBox();
             this.textScreenHeight = new System.Windows.Forms.TextBox();
-            this.labelHotkey = new System.Windows.Forms.Label();
-            this.textHotkey = new System.Windows.Forms.TextBox();
+            this.labelHotkeyAllScreen = new System.Windows.Forms.Label();
+            this.textHotkeyAllScreen = new System.Windows.Forms.TextBox();
             this.buttonOpenFolder = new System.Windows.Forms.Button();
             this.checkBoxSaveClipboard = new System.Windows.Forms.CheckBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.textHotkeySnippet = new System.Windows.Forms.TextBox();
+            this.labelHotkeySnippet = new System.Windows.Forms.Label();
             this.contextMenuTray.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,28 +72,28 @@
             this.textScreenHeight.Size = new System.Drawing.Size(50, 20);
             this.textScreenHeight.TabIndex = 2;
             // 
-            // labelHotkey
+            // labelHotkeyAllScreen
             // 
-            this.labelHotkey.AutoSize = true;
-            this.labelHotkey.Location = new System.Drawing.Point(16, 57);
-            this.labelHotkey.Name = "labelHotkey";
-            this.labelHotkey.Size = new System.Drawing.Size(41, 13);
-            this.labelHotkey.TabIndex = 3;
-            this.labelHotkey.Text = "Hotkey";
+            this.labelHotkeyAllScreen.AutoSize = true;
+            this.labelHotkeyAllScreen.Location = new System.Drawing.Point(13, 53);
+            this.labelHotkeyAllScreen.Name = "labelHotkeyAllScreen";
+            this.labelHotkeyAllScreen.Size = new System.Drawing.Size(96, 13);
+            this.labelHotkeyAllScreen.TabIndex = 3;
+            this.labelHotkeyAllScreen.Text = "Hotkey (All screen)";
             // 
-            // textHotkey
+            // textHotkeyAllScreen
             // 
-            this.textHotkey.Enabled = false;
-            this.textHotkey.Location = new System.Drawing.Point(16, 74);
-            this.textHotkey.Name = "textHotkey";
-            this.textHotkey.Size = new System.Drawing.Size(106, 20);
-            this.textHotkey.TabIndex = 4;
+            this.textHotkeyAllScreen.Enabled = false;
+            this.textHotkeyAllScreen.Location = new System.Drawing.Point(16, 69);
+            this.textHotkeyAllScreen.Name = "textHotkeyAllScreen";
+            this.textHotkeyAllScreen.Size = new System.Drawing.Size(106, 20);
+            this.textHotkeyAllScreen.TabIndex = 4;
             // 
             // buttonOpenFolder
             // 
             this.buttonOpenFolder.Location = new System.Drawing.Point(129, 30);
             this.buttonOpenFolder.Name = "buttonOpenFolder";
-            this.buttonOpenFolder.Size = new System.Drawing.Size(75, 64);
+            this.buttonOpenFolder.Size = new System.Drawing.Size(75, 59);
             this.buttonOpenFolder.TabIndex = 5;
             this.buttonOpenFolder.Text = "Open Folder";
             this.buttonOpenFolder.UseVisualStyleBackColor = true;
@@ -102,7 +104,7 @@
             this.checkBoxSaveClipboard.AutoSize = true;
             this.checkBoxSaveClipboard.Checked = true;
             this.checkBoxSaveClipboard.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSaveClipboard.Location = new System.Drawing.Point(16, 101);
+            this.checkBoxSaveClipboard.Location = new System.Drawing.Point(16, 134);
             this.checkBoxSaveClipboard.Name = "checkBoxSaveClipboard";
             this.checkBoxSaveClipboard.Size = new System.Drawing.Size(109, 17);
             this.checkBoxSaveClipboard.TabIndex = 6;
@@ -131,15 +133,34 @@
             this.toolStripMenuExit.Text = "Exit";
             this.toolStripMenuExit.Click += new System.EventHandler(this.toolStripMenuExit_Click);
             // 
+            // textHotkeySnippet
+            // 
+            this.textHotkeySnippet.Enabled = false;
+            this.textHotkeySnippet.Location = new System.Drawing.Point(16, 108);
+            this.textHotkeySnippet.Name = "textHotkeySnippet";
+            this.textHotkeySnippet.Size = new System.Drawing.Size(106, 20);
+            this.textHotkeySnippet.TabIndex = 8;
+            // 
+            // labelHotkeySnippet
+            // 
+            this.labelHotkeySnippet.AutoSize = true;
+            this.labelHotkeySnippet.Location = new System.Drawing.Point(13, 92);
+            this.labelHotkeySnippet.Name = "labelHotkeySnippet";
+            this.labelHotkeySnippet.Size = new System.Drawing.Size(86, 13);
+            this.labelHotkeySnippet.TabIndex = 7;
+            this.labelHotkeySnippet.Text = "Hotkey (Snippet)";
+            // 
             // CaptureSave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(219, 126);
+            this.ClientSize = new System.Drawing.Size(219, 161);
+            this.Controls.Add(this.textHotkeySnippet);
+            this.Controls.Add(this.labelHotkeySnippet);
             this.Controls.Add(this.checkBoxSaveClipboard);
             this.Controls.Add(this.buttonOpenFolder);
-            this.Controls.Add(this.textHotkey);
-            this.Controls.Add(this.labelHotkey);
+            this.Controls.Add(this.textHotkeyAllScreen);
+            this.Controls.Add(this.labelHotkeyAllScreen);
             this.Controls.Add(this.textScreenHeight);
             this.Controls.Add(this.textScreenWidth);
             this.Controls.Add(this.labelScreenResolution);
@@ -160,13 +181,15 @@
         private System.Windows.Forms.Label labelScreenResolution;
         private System.Windows.Forms.TextBox textScreenWidth;
         private System.Windows.Forms.TextBox textScreenHeight;
-        private System.Windows.Forms.Label labelHotkey;
-        private System.Windows.Forms.TextBox textHotkey;
+        private System.Windows.Forms.Label labelHotkeyAllScreen;
+        private System.Windows.Forms.TextBox textHotkeyAllScreen;
         private System.Windows.Forms.Button buttonOpenFolder;
         private System.Windows.Forms.CheckBox checkBoxSaveClipboard;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuTray;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuExit;
+        private System.Windows.Forms.TextBox textHotkeySnippet;
+        private System.Windows.Forms.Label labelHotkeySnippet;
     }
 }
 

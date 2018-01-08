@@ -27,9 +27,9 @@ namespace CaptureSave
         {
             InitializeComponent();
             LoadResolution();
-            LoadHotkey();
+            LoadHotkeys();
             RegisterHotKey(this.Handle, ALLSCREEN_HOTKEY_ID, 5, (int)Keys.S);
-            //RegisterHotKey(this.Handle, CROP_HOTKEY_ID, 5, (int)Keys.C);
+            RegisterHotKey(this.Handle, CROP_HOTKEY_ID, 5, (int)Keys.C);
         }
 
         public void LoadResolution()
@@ -38,31 +38,49 @@ namespace CaptureSave
             textScreenHeight.Text = screenHeight.ToString();
         }
 
-        public void LoadHotkey()
+        public void LoadHotkeys()
         {
-            textHotkey.Text = Keys.Alt.ToString() + "+" + Keys.Shift.ToString() + "+" + Keys.S.ToString();
+            textHotkeyAllScreen.Text = Keys.Alt.ToString() + "+" + Keys.Shift.ToString() + "+" + Keys.S.ToString();
+            textHotkeySnippet.Text = Keys.Alt.ToString() + "+" + Keys.Shift.ToString() + "+" + Keys.C.ToString();
+        }
+
+        protected void SaveImage(string imageType, Bitmap bitmap)
+        {
+            string name;
+
+            if (imageType == "screenshot" && imageType != null)
+                name = DateTime.Now.ToFileTime() + "_screenshot.png";
+            else
+                name = DateTime.Now.ToFileTime() + "_snippet.png";
+
+            bitmap.Save(filePath + name, ImageFormat.Png);
+
+            if (checkBoxSaveClipboard.Checked)
+                Clipboard.SetImage(bitmap);
         }
 
         protected override void WndProc(ref Message m)
         {
+            System.IO.FileInfo file = new System.IO.FileInfo(filePath);
+            if (!Directory.Exists(filePath))
+                file.Directory.Create();
+
             if (m.Msg == 0x0312 && m.WParam.ToInt32() == ALLSCREEN_HOTKEY_ID)
             {
                 using (Bitmap bitmap = new Bitmap(screenWidth, screenHeight))
                 {
                     using (Graphics g = Graphics.FromImage(bitmap))
-                    {
                         g.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
-                    }
 
-                    System.IO.FileInfo file = new System.IO.FileInfo(filePath);
-                    if (!Directory.Exists(filePath))
-                        file.Directory.Create();
-
-                    string name = DateTime.Now.ToFileTime() + ".png";
-                    bitmap.Save(filePath + name, ImageFormat.Png);
-
-                    if (checkBoxSaveClipboard.Checked)
-                        Clipboard.SetImage(bitmap);
+                    SaveImage("screenshot", bitmap);
+                }
+            }
+            else if (m.Msg == 0x0312 && m.WParam.ToInt32() == CROP_HOTKEY_ID)
+            {
+                var bitmap = SnippingTool.Snip();
+                if (bitmap != null)
+                {
+                    SaveImage("snippet", new Bitmap(bitmap));
                 }
             }
             base.WndProc(ref m);
