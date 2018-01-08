@@ -20,7 +20,7 @@ namespace CaptureSave
         private int screenWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width);
         private int screenHeight = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height);
 
-        private string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\img\\";
+        private string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Images_CaptureSave\\";
 
         public CaptureSave()
         {
@@ -53,10 +53,14 @@ namespace CaptureSave
                     }
 
                     System.IO.FileInfo file = new System.IO.FileInfo(filePath);
-                    file.Directory.Create();
+                    if (!Directory.Exists(filePath))
+                        file.Directory.Create();
 
                     string name = DateTime.Now.ToFileTime() + ".png";
                     bitmap.Save(filePath + name, ImageFormat.Png);
+
+                    if (checkBoxSaveClipboard.Checked)
+                        Clipboard.SetImage(bitmap);
                 }
             }
             base.WndProc(ref m);
@@ -65,12 +69,9 @@ namespace CaptureSave
         private void buttonOpenFolder_Click(object sender, EventArgs e)
         {
             if (Directory.Exists(filePath))
-            {
                 System.Diagnostics.Process.Start(filePath);
-            } else
-            {
+            else
                 MessageBox.Show("Try to make screenshots first.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
     }
 }
