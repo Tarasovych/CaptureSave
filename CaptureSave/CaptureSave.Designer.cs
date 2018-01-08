@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CaptureSave));
             this.labelScreenResolution = new System.Windows.Forms.Label();
             this.textScreenWidth = new System.Windows.Forms.TextBox();
@@ -36,6 +37,7 @@
             this.textHotkey = new System.Windows.Forms.TextBox();
             this.buttonOpenFolder = new System.Windows.Forms.Button();
             this.checkBoxSaveClipboard = new System.Windows.Forms.CheckBox();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // labelScreenResolution
@@ -104,6 +106,13 @@
             this.checkBoxSaveClipboard.Text = "Save to clipboard";
             this.checkBoxSaveClipboard.UseVisualStyleBackColor = true;
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "CaptureSave";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
+            // 
             // CaptureSave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -119,9 +128,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "CaptureSave";
             this.Text = "CaptureSave";
+            this.Resize += new System.EventHandler(this.CaptureSave_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,6 +145,7 @@
         private System.Windows.Forms.TextBox textHotkey;
         private System.Windows.Forms.Button buttonOpenFolder;
         private System.Windows.Forms.CheckBox checkBoxSaveClipboard;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 
