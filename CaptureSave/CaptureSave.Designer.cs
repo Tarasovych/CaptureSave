@@ -38,6 +38,9 @@
             this.buttonOpenFolder = new System.Windows.Forms.Button();
             this.checkBoxSaveClipboard = new System.Windows.Forms.CheckBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuTray = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuTray.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelScreenResolution
@@ -108,10 +111,25 @@
             // 
             // notifyIcon
             // 
+            this.notifyIcon.ContextMenuStrip = this.contextMenuTray;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "CaptureSave";
             this.notifyIcon.Visible = true;
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
+            // 
+            // contextMenuTray
+            // 
+            this.contextMenuTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuExit});
+            this.contextMenuTray.Name = "contextMenuTray";
+            this.contextMenuTray.Size = new System.Drawing.Size(153, 48);
+            // 
+            // toolStripMenuExit
+            // 
+            this.toolStripMenuExit.Name = "toolStripMenuExit";
+            this.toolStripMenuExit.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuExit.Text = "Exit";
+            this.toolStripMenuExit.Click += new System.EventHandler(this.toolStripMenuExit_Click);
             // 
             // CaptureSave
             // 
@@ -131,6 +149,7 @@
             this.Name = "CaptureSave";
             this.Text = "CaptureSave";
             this.Resize += new System.EventHandler(this.CaptureSave_Resize);
+            this.contextMenuTray.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,6 +165,8 @@
         private System.Windows.Forms.Button buttonOpenFolder;
         private System.Windows.Forms.CheckBox checkBoxSaveClipboard;
         private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip contextMenuTray;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuExit;
     }
 }
 

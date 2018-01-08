@@ -15,7 +15,8 @@ namespace CaptureSave
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        const int MYACTION_HOTKEY_ID = 1;
+        const int ALLSCREEN_HOTKEY_ID = 1;
+        const int CROP_HOTKEY_ID = 2;
 
         private int screenWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width);
         private int screenHeight = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height);
@@ -27,7 +28,8 @@ namespace CaptureSave
             InitializeComponent();
             LoadResolution();
             LoadHotkey();
-            RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, 5, (int)Keys.S);
+            RegisterHotKey(this.Handle, ALLSCREEN_HOTKEY_ID, 5, (int)Keys.S);
+            //RegisterHotKey(this.Handle, CROP_HOTKEY_ID, 5, (int)Keys.C);
         }
 
         public void LoadResolution()
@@ -43,7 +45,7 @@ namespace CaptureSave
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == 0x0312 && m.WParam.ToInt32() == MYACTION_HOTKEY_ID)
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == ALLSCREEN_HOTKEY_ID)
             {
                 using (Bitmap bitmap = new Bitmap(screenWidth, screenHeight))
                 {
@@ -84,6 +86,11 @@ namespace CaptureSave
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private void toolStripMenuExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
