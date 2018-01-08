@@ -82,15 +82,16 @@ namespace CaptureSave
                 this.Hide();
         }
 
-        private void notifyIcon_Click(object sender, EventArgs e)
-        {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
-        }
-
         private void toolStripMenuExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
         }
     }
 }

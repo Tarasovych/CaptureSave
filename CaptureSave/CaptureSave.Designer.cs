@@ -115,19 +115,19 @@
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "CaptureSave";
             this.notifyIcon.Visible = true;
-            this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // contextMenuTray
             // 
             this.contextMenuTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuExit});
             this.contextMenuTray.Name = "contextMenuTray";
-            this.contextMenuTray.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuTray.Size = new System.Drawing.Size(93, 26);
             // 
             // toolStripMenuExit
             // 
             this.toolStripMenuExit.Name = "toolStripMenuExit";
-            this.toolStripMenuExit.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuExit.Size = new System.Drawing.Size(92, 22);
             this.toolStripMenuExit.Text = "Exit";
             this.toolStripMenuExit.Click += new System.EventHandler(this.toolStripMenuExit_Click);
             // 
