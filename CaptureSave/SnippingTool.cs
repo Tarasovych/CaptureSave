@@ -30,7 +30,7 @@ namespace CaptureSave
             }
         }
 
-        public SnippingTool(Image screenShot)
+        public SnippingTool(Bitmap screenShot)
         {
             InitializeComponent();
             this.BackgroundImage = screenShot;
