@@ -77,10 +77,13 @@ namespace CaptureSave
             }
             else if (m.Msg == 0x0312 && m.WParam.ToInt32() == CROP_HOTKEY_ID)
             {
-                var bitmap = SnippingTool.Snip();
-                if (bitmap != null)
+                if ((Application.OpenForms["SnippingTool"] as SnippingTool) == null)
                 {
-                    SaveImage("snippet", new Bitmap(bitmap));
+                    var bitmap = SnippingTool.Snip();
+                    if (bitmap != null)
+                    {
+                        SaveImage("snippet", new Bitmap(bitmap));
+                    }
                 }
             }
             base.WndProc(ref m);

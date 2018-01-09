@@ -6,10 +6,18 @@ namespace CaptureSave
 {
     public partial class SnippingTool : Form
     {
+        private Rectangle rectangleSelect;
+        private Point pointStart;
+
         public Image Image { get; set; }
 
-        private Rectangle rectangleSelect = new Rectangle();
-        private Point pointStart;
+        public Rectangle RectangleSelect
+        {
+            set
+            {
+                rectangleSelect = new Rectangle();
+            }
+        }
 
         public static Image Snip()
         {
