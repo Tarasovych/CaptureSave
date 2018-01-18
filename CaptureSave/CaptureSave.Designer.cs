@@ -30,72 +30,49 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CaptureSave));
-            this.labelScreenResolution = new System.Windows.Forms.Label();
-            this.textScreenWidth = new System.Windows.Forms.TextBox();
-            this.textScreenHeight = new System.Windows.Forms.TextBox();
             this.labelHotkeyAllScreen = new System.Windows.Forms.Label();
-            this.textHotkeyAllScreen = new System.Windows.Forms.TextBox();
+            this.textScreenshotHotkey = new System.Windows.Forms.TextBox();
             this.buttonOpenFolder = new System.Windows.Forms.Button();
             this.checkBoxSaveClipboard = new System.Windows.Forms.CheckBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.textHotkeySnippet = new System.Windows.Forms.TextBox();
+            this.textSnippetHotkey = new System.Windows.Forms.TextBox();
             this.labelHotkeySnippet = new System.Windows.Forms.Label();
+            this.buttonEditScreenshotHotkey = new System.Windows.Forms.Button();
+            this.buttonEditSnippetHotkey = new System.Windows.Forms.Button();
+            this.buttonSaveScreenshotHotkey = new System.Windows.Forms.Button();
+            this.buttonSaveSnippetHotkey = new System.Windows.Forms.Button();
             this.contextMenuTray.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // labelScreenResolution
-            // 
-            this.labelScreenResolution.AutoSize = true;
-            this.labelScreenResolution.Location = new System.Drawing.Point(13, 13);
-            this.labelScreenResolution.Name = "labelScreenResolution";
-            this.labelScreenResolution.Size = new System.Drawing.Size(94, 13);
-            this.labelScreenResolution.TabIndex = 0;
-            this.labelScreenResolution.Text = "Screen Resolution";
-            // 
-            // textScreenWidth
-            // 
-            this.textScreenWidth.Enabled = false;
-            this.textScreenWidth.Location = new System.Drawing.Point(16, 30);
-            this.textScreenWidth.MaxLength = 4;
-            this.textScreenWidth.Name = "textScreenWidth";
-            this.textScreenWidth.Size = new System.Drawing.Size(50, 20);
-            this.textScreenWidth.TabIndex = 1;
-            // 
-            // textScreenHeight
-            // 
-            this.textScreenHeight.Enabled = false;
-            this.textScreenHeight.Location = new System.Drawing.Point(72, 30);
-            this.textScreenHeight.MaxLength = 4;
-            this.textScreenHeight.Name = "textScreenHeight";
-            this.textScreenHeight.Size = new System.Drawing.Size(50, 20);
-            this.textScreenHeight.TabIndex = 2;
             // 
             // labelHotkeyAllScreen
             // 
             this.labelHotkeyAllScreen.AutoSize = true;
-            this.labelHotkeyAllScreen.Location = new System.Drawing.Point(13, 53);
+            this.labelHotkeyAllScreen.Location = new System.Drawing.Point(10, 55);
             this.labelHotkeyAllScreen.Name = "labelHotkeyAllScreen";
             this.labelHotkeyAllScreen.Size = new System.Drawing.Size(96, 13);
             this.labelHotkeyAllScreen.TabIndex = 3;
-            this.labelHotkeyAllScreen.Text = "Hotkey (All screen)";
+            this.labelHotkeyAllScreen.Text = "Screenshot hotkey";
             // 
-            // textHotkeyAllScreen
+            // textScreenshotHotkey
             // 
-            this.textHotkeyAllScreen.Enabled = false;
-            this.textHotkeyAllScreen.Location = new System.Drawing.Point(16, 69);
-            this.textHotkeyAllScreen.Name = "textHotkeyAllScreen";
-            this.textHotkeyAllScreen.Size = new System.Drawing.Size(106, 20);
-            this.textHotkeyAllScreen.TabIndex = 4;
+            this.textScreenshotHotkey.Enabled = false;
+            this.textScreenshotHotkey.Location = new System.Drawing.Point(10, 71);
+            this.textScreenshotHotkey.MaxLength = 255;
+            this.textScreenshotHotkey.Name = "textScreenshotHotkey";
+            this.textScreenshotHotkey.ShortcutsEnabled = false;
+            this.textScreenshotHotkey.Size = new System.Drawing.Size(106, 20);
+            this.textScreenshotHotkey.TabIndex = 2;
+            this.textScreenshotHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textHotkeys_KeyDown);
             // 
             // buttonOpenFolder
             // 
-            this.buttonOpenFolder.Location = new System.Drawing.Point(129, 30);
+            this.buttonOpenFolder.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpenFolder.Image")));
+            this.buttonOpenFolder.Location = new System.Drawing.Point(10, 10);
             this.buttonOpenFolder.Name = "buttonOpenFolder";
-            this.buttonOpenFolder.Size = new System.Drawing.Size(75, 59);
-            this.buttonOpenFolder.TabIndex = 5;
-            this.buttonOpenFolder.Text = "Open Folder";
+            this.buttonOpenFolder.Size = new System.Drawing.Size(175, 40);
+            this.buttonOpenFolder.TabIndex = 1;
             this.buttonOpenFolder.UseVisualStyleBackColor = true;
             this.buttonOpenFolder.Click += new System.EventHandler(this.buttonOpenFolder_Click);
             // 
@@ -104,12 +81,13 @@
             this.checkBoxSaveClipboard.AutoSize = true;
             this.checkBoxSaveClipboard.Checked = true;
             this.checkBoxSaveClipboard.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSaveClipboard.Location = new System.Drawing.Point(16, 134);
+            this.checkBoxSaveClipboard.Location = new System.Drawing.Point(10, 136);
             this.checkBoxSaveClipboard.Name = "checkBoxSaveClipboard";
             this.checkBoxSaveClipboard.Size = new System.Drawing.Size(109, 17);
             this.checkBoxSaveClipboard.TabIndex = 6;
             this.checkBoxSaveClipboard.Text = "Save to clipboard";
             this.checkBoxSaveClipboard.UseVisualStyleBackColor = true;
+            this.checkBoxSaveClipboard.CheckedChanged += new System.EventHandler(this.checkBoxSaveClipboard_CheckedChanged);
             // 
             // notifyIcon
             // 
@@ -133,39 +111,86 @@
             this.toolStripMenuExit.Text = "Exit";
             this.toolStripMenuExit.Click += new System.EventHandler(this.toolStripMenuExit_Click);
             // 
-            // textHotkeySnippet
+            // textSnippetHotkey
             // 
-            this.textHotkeySnippet.Enabled = false;
-            this.textHotkeySnippet.Location = new System.Drawing.Point(16, 108);
-            this.textHotkeySnippet.Name = "textHotkeySnippet";
-            this.textHotkeySnippet.Size = new System.Drawing.Size(106, 20);
-            this.textHotkeySnippet.TabIndex = 8;
+            this.textSnippetHotkey.Enabled = false;
+            this.textSnippetHotkey.Location = new System.Drawing.Point(10, 110);
+            this.textSnippetHotkey.MaxLength = 255;
+            this.textSnippetHotkey.Name = "textSnippetHotkey";
+            this.textSnippetHotkey.ShortcutsEnabled = false;
+            this.textSnippetHotkey.Size = new System.Drawing.Size(106, 20);
+            this.textSnippetHotkey.TabIndex = 4;
+            this.textSnippetHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textHotkeys_KeyDown);
             // 
             // labelHotkeySnippet
             // 
             this.labelHotkeySnippet.AutoSize = true;
-            this.labelHotkeySnippet.Location = new System.Drawing.Point(13, 92);
+            this.labelHotkeySnippet.Location = new System.Drawing.Point(10, 94);
             this.labelHotkeySnippet.Name = "labelHotkeySnippet";
-            this.labelHotkeySnippet.Size = new System.Drawing.Size(86, 13);
+            this.labelHotkeySnippet.Size = new System.Drawing.Size(78, 13);
             this.labelHotkeySnippet.TabIndex = 7;
-            this.labelHotkeySnippet.Text = "Hotkey (Snippet)";
+            this.labelHotkeySnippet.Text = "Snippet hotkey";
+            // 
+            // buttonEditScreenshotHotkey
+            // 
+            this.buttonEditScreenshotHotkey.Location = new System.Drawing.Point(122, 71);
+            this.buttonEditScreenshotHotkey.Name = "buttonEditScreenshotHotkey";
+            this.buttonEditScreenshotHotkey.Size = new System.Drawing.Size(60, 20);
+            this.buttonEditScreenshotHotkey.TabIndex = 3;
+            this.buttonEditScreenshotHotkey.Text = "Edit";
+            this.buttonEditScreenshotHotkey.UseVisualStyleBackColor = true;
+            this.buttonEditScreenshotHotkey.Click += new System.EventHandler(this.buttonEditScreenshotHotkey_Click);
+            // 
+            // buttonEditSnippetHotkey
+            // 
+            this.buttonEditSnippetHotkey.Location = new System.Drawing.Point(122, 110);
+            this.buttonEditSnippetHotkey.Name = "buttonEditSnippetHotkey";
+            this.buttonEditSnippetHotkey.Size = new System.Drawing.Size(60, 20);
+            this.buttonEditSnippetHotkey.TabIndex = 5;
+            this.buttonEditSnippetHotkey.Text = "Edit";
+            this.buttonEditSnippetHotkey.UseVisualStyleBackColor = true;
+            this.buttonEditSnippetHotkey.Click += new System.EventHandler(this.buttonEditSnippetHotkey_Click);
+            // 
+            // buttonSaveScreenshotHotkey
+            // 
+            this.buttonSaveScreenshotHotkey.Location = new System.Drawing.Point(122, 71);
+            this.buttonSaveScreenshotHotkey.Name = "buttonSaveScreenshotHotkey";
+            this.buttonSaveScreenshotHotkey.Size = new System.Drawing.Size(60, 20);
+            this.buttonSaveScreenshotHotkey.TabIndex = 8;
+            this.buttonSaveScreenshotHotkey.Text = "Save";
+            this.buttonSaveScreenshotHotkey.UseVisualStyleBackColor = true;
+            this.buttonSaveScreenshotHotkey.Visible = false;
+            this.buttonSaveScreenshotHotkey.Click += new System.EventHandler(this.buttonSaveScreenshotHotkey_Click);
+            // 
+            // buttonSaveSnippetHotkey
+            // 
+            this.buttonSaveSnippetHotkey.Location = new System.Drawing.Point(122, 110);
+            this.buttonSaveSnippetHotkey.Name = "buttonSaveSnippetHotkey";
+            this.buttonSaveSnippetHotkey.Size = new System.Drawing.Size(60, 20);
+            this.buttonSaveSnippetHotkey.TabIndex = 9;
+            this.buttonSaveSnippetHotkey.Text = "Save";
+            this.buttonSaveSnippetHotkey.UseVisualStyleBackColor = true;
+            this.buttonSaveSnippetHotkey.Visible = false;
+            this.buttonSaveSnippetHotkey.Click += new System.EventHandler(this.buttonSaveSnippetHotkey_Click);
             // 
             // CaptureSave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(219, 161);
-            this.Controls.Add(this.textHotkeySnippet);
+            this.ClientSize = new System.Drawing.Size(194, 161);
+            this.Controls.Add(this.buttonSaveSnippetHotkey);
+            this.Controls.Add(this.buttonSaveScreenshotHotkey);
+            this.Controls.Add(this.buttonEditSnippetHotkey);
+            this.Controls.Add(this.buttonEditScreenshotHotkey);
+            this.Controls.Add(this.textSnippetHotkey);
             this.Controls.Add(this.labelHotkeySnippet);
             this.Controls.Add(this.checkBoxSaveClipboard);
             this.Controls.Add(this.buttonOpenFolder);
-            this.Controls.Add(this.textHotkeyAllScreen);
+            this.Controls.Add(this.textScreenshotHotkey);
             this.Controls.Add(this.labelHotkeyAllScreen);
-            this.Controls.Add(this.textScreenHeight);
-            this.Controls.Add(this.textScreenWidth);
-            this.Controls.Add(this.labelScreenResolution);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "CaptureSave";
             this.Text = "CaptureSave";
@@ -177,19 +202,19 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelScreenResolution;
-        private System.Windows.Forms.TextBox textScreenWidth;
-        private System.Windows.Forms.TextBox textScreenHeight;
         private System.Windows.Forms.Label labelHotkeyAllScreen;
-        private System.Windows.Forms.TextBox textHotkeyAllScreen;
+        private System.Windows.Forms.TextBox textScreenshotHotkey;
         private System.Windows.Forms.Button buttonOpenFolder;
         private System.Windows.Forms.CheckBox checkBoxSaveClipboard;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuTray;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuExit;
-        private System.Windows.Forms.TextBox textHotkeySnippet;
+        private System.Windows.Forms.TextBox textSnippetHotkey;
         private System.Windows.Forms.Label labelHotkeySnippet;
+        private System.Windows.Forms.Button buttonEditScreenshotHotkey;
+        private System.Windows.Forms.Button buttonEditSnippetHotkey;
+        private System.Windows.Forms.Button buttonSaveScreenshotHotkey;
+        private System.Windows.Forms.Button buttonSaveSnippetHotkey;
     }
 }
 

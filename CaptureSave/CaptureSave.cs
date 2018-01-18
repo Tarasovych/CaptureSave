@@ -4,48 +4,98 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Linq;
+using System.ComponentModel;
 
 namespace CaptureSave
 {
-
     public partial class CaptureSave : Form
-    {
-        [DllImport("user32.dll")]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
-        [DllImport("user32.dll")]
-        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+    {     
+        const int SCREENSHOT_HOTKEY_ID = 1;
+        const int SNIPPET_HOTKEY_ID = 2;
 
-        const int ALLSCREEN_HOTKEY_ID = 1;
-        const int CROP_HOTKEY_ID = 2;
-
+        private string ScreenshotHotkeySettings {
+            get { return Properties.Settings.Default.ScreenshotHotkey; }
+            set { Properties.Settings.Default.ScreenshotHotkey = value; }
+        }
+        private string SnippetHotkeySettings {
+            get { return Properties.Settings.Default.SnippetHotkey; }
+            set { Properties.Settings.Default.SnippetHotkey = value; }
+        }
+        private bool saveToClipboard = Properties.Settings.Default.SaveToClipboard;
         private int screenWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width);
         private int screenHeight = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height);
-
         private string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Images_CaptureSave\\";
+        private DisplayError _displayError;
+        private HotkeysValidation _hotkeysValidation;
 
-        public CaptureSave()
-        {
-            InitializeComponent();
-            LoadResolution();
-            LoadHotkeys();
-            RegisterHotKey(this.Handle, ALLSCREEN_HOTKEY_ID, 5, (int)Keys.S);
-            RegisterHotKey(this.Handle, CROP_HOTKEY_ID, 5, (int)Keys.C);
+        protected bool AllowScreenshots {
+            get
+            {
+                if (textScreenshotHotkey.Enabled == false && textSnippetHotkey.Enabled == false)
+                    return true;
+                else
+                    return false;
+            }
         }
 
-        public void LoadResolution()
+        protected int GetModifiers(string settings)
         {
-            textScreenWidth.Text = screenWidth.ToString();
-            textScreenHeight.Text = screenHeight.ToString();
+            string[] keys;
+            int fsModifier = 0;
+            keys = settings.Split('+');
+
+            if (keys.Contains("Alt"))
+                fsModifier = 1;
+
+            if (keys.Contains("Ctrl"))
+                fsModifier = fsModifier + 2;
+
+            if (keys.Contains("Shift"))
+                fsModifier = fsModifier + 4;
+
+            return fsModifier;
+        }
+
+        protected Keys GetKey(string settings)
+        {
+            Keys key;
+            string[] keys;
+            keys = settings.Split('+');
+
+            Enum.TryParse(keys.Last(), out key);
+
+            return key;
+        }
+
+        public CaptureSave(DisplayError displayError, HotkeysValidation hotkeysValidation)
+        {
+            InitializeComponent();
+            LoadHotkeys();
+            LoadSettings();
+            _displayError = displayError;
+            _hotkeysValidation = hotkeysValidation;
+        }
+
+        public void LoadSettings()
+        {
+            textScreenshotHotkey.Text = ScreenshotHotkeySettings;
+            textSnippetHotkey.Text = SnippetHotkeySettings;
+            checkBoxSaveClipboard.Checked = saveToClipboard;
         }
 
         public void LoadHotkeys()
         {
-            textHotkeyAllScreen.Text = Keys.Alt.ToString() + "+" + Keys.Shift.ToString() + "+" + Keys.S.ToString();
-            textHotkeySnippet.Text = Keys.Alt.ToString() + "+" + Keys.Shift.ToString() + "+" + Keys.C.ToString();
+            RegisterHotKey(this.Handle, SCREENSHOT_HOTKEY_ID, GetModifiers(ScreenshotHotkeySettings), (int)GetKey(ScreenshotHotkeySettings));
+            RegisterHotKey(this.Handle, SNIPPET_HOTKEY_ID, GetModifiers(SnippetHotkeySettings), (int)GetKey(SnippetHotkeySettings));
         }
 
         protected void SaveImage(string imageType, Bitmap bitmap)
         {
+            System.IO.FileInfo file = new System.IO.FileInfo(filePath);
+            if (!Directory.Exists(filePath))
+                file.Directory.Create();
+
             string name;
 
             if (imageType == "screenshot" && imageType != null)
@@ -61,11 +111,7 @@ namespace CaptureSave
 
         protected override void WndProc(ref Message m)
         {
-            System.IO.FileInfo file = new System.IO.FileInfo(filePath);
-            if (!Directory.Exists(filePath))
-                file.Directory.Create();
-
-            if (m.Msg == 0x0312 && m.WParam.ToInt32() == ALLSCREEN_HOTKEY_ID)
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == SCREENSHOT_HOTKEY_ID && AllowScreenshots == true)
             {
                 using (Bitmap bitmap = new Bitmap(screenWidth, screenHeight))
                 {
@@ -75,7 +121,7 @@ namespace CaptureSave
                     SaveImage("screenshot", bitmap);
                 }
             }
-            else if (m.Msg == 0x0312 && m.WParam.ToInt32() == CROP_HOTKEY_ID)
+            else if (m.Msg == 0x0312 && m.WParam.ToInt32() == SNIPPET_HOTKEY_ID && AllowScreenshots == true)
             {
                 if ((Application.OpenForms["SnippingTool"] as SnippingTool) == null)
                 {
@@ -114,5 +160,80 @@ namespace CaptureSave
                 this.Show();
                 this.WindowState = FormWindowState.Normal;
         }
+
+        private void buttonEditScreenshotHotkey_Click(object sender, EventArgs e)
+        {
+            EditHotkeysButton(textScreenshotHotkey, buttonSaveScreenshotHotkey, buttonEditScreenshotHotkey, SCREENSHOT_HOTKEY_ID);
+        }
+
+        private void buttonEditSnippetHotkey_Click(object sender, EventArgs e)
+        {
+            EditHotkeysButton(textSnippetHotkey, buttonSaveSnippetHotkey, buttonEditSnippetHotkey, SNIPPET_HOTKEY_ID);
+        }
+
+        private void EditHotkeysButton(TextBox textBox, Button buttonSave, Button buttonEdit, int id)
+        {
+            UnregisterHotKey(this.Handle, id);
+            textBox.Enabled = true;
+            textBox.Select();
+            buttonEdit.Visible = false;
+            buttonSave.Visible = true;
+        }
+
+        private void buttonSaveScreenshotHotkey_Click(object sender, EventArgs e)
+        {
+            SaveHotkeysButton(textScreenshotHotkey, SnippetHotkeySettings, "ScreenshotHotkey", buttonSaveScreenshotHotkey, buttonEditScreenshotHotkey);
+        }
+
+        private void buttonSaveSnippetHotkey_Click(object sender, EventArgs e)
+        {
+            SaveHotkeysButton(textSnippetHotkey, ScreenshotHotkeySettings, "SnippetHotkey", buttonSaveSnippetHotkey, buttonEditSnippetHotkey);
+        }
+
+        private void SaveHotkeysButton(TextBox textBox, string settingsExists, string settingsRewrite, Button buttonSave, Button buttonEdit)
+        {
+            PropertyDescriptor pd = TypeDescriptor.GetProperties(Properties.Settings.Default)[settingsRewrite];
+            if (textBox.Text != settingsExists && textBox.Text != "")
+            {
+                pd.SetValue(Properties.Settings.Default, textBox.Text);
+                Properties.Settings.Default.Save();
+                LoadHotkeys();
+                buttonSave.Visible = false;
+                textBox.Enabled = false;
+                buttonEdit.Visible = true;
+            }
+            else if (textBox.Text == "")
+            {
+                _displayError.ShowEmptyStringError(textBox);
+            }
+            else
+            {
+                _displayError.ShowHotkeyInUseError(textBox);
+            }
+        }
+
+        private void checkBoxSaveClipboard_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.SaveToClipboard = checkBoxSaveClipboard.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void textHotkeys_KeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textHotkeys = (TextBox)sender;
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+            textHotkeys.Text = "";
+
+            if (_hotkeysValidation.Validate(e))
+                textHotkeys.Text = (new KeysConverter()).ConvertToString(e.KeyData);
+        }
+
+        #region WindowsAPI
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
+        [DllImport("user32.dll")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        #endregion
     }
 }

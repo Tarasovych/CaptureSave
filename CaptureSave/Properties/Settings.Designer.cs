@@ -22,5 +22,41 @@ namespace CaptureSave.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Alt+Shift+S")]
+        public string ScreenshotHotkey {
+            get {
+                return ((string)(this["ScreenshotHotkey"]));
+            }
+            set {
+                this["ScreenshotHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Alt+Shift+C")]
+        public string SnippetHotkey {
+            get {
+                return ((string)(this["SnippetHotkey"]));
+            }
+            set {
+                this["SnippetHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveToClipboard {
+            get {
+                return ((bool)(this["SaveToClipboard"]));
+            }
+            set {
+                this["SaveToClipboard"] = value;
+            }
+        }
     }
 }
