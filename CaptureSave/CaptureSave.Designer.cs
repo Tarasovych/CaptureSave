@@ -33,7 +33,6 @@
             this.labelHotkeyAllScreen = new System.Windows.Forms.Label();
             this.textScreenshotHotkey = new System.Windows.Forms.TextBox();
             this.buttonOpenFolder = new System.Windows.Forms.Button();
-            this.checkBoxSaveClipboard = new System.Windows.Forms.CheckBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +42,7 @@
             this.buttonEditSnippetHotkey = new System.Windows.Forms.Button();
             this.buttonSaveScreenshotHotkey = new System.Windows.Forms.Button();
             this.buttonSaveSnippetHotkey = new System.Windows.Forms.Button();
+            this.buttonSettings = new System.Windows.Forms.Button();
             this.contextMenuTray.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,23 +71,10 @@
             this.buttonOpenFolder.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpenFolder.Image")));
             this.buttonOpenFolder.Location = new System.Drawing.Point(10, 10);
             this.buttonOpenFolder.Name = "buttonOpenFolder";
-            this.buttonOpenFolder.Size = new System.Drawing.Size(175, 40);
+            this.buttonOpenFolder.Size = new System.Drawing.Size(106, 40);
             this.buttonOpenFolder.TabIndex = 1;
             this.buttonOpenFolder.UseVisualStyleBackColor = true;
             this.buttonOpenFolder.Click += new System.EventHandler(this.buttonOpenFolder_Click);
-            // 
-            // checkBoxSaveClipboard
-            // 
-            this.checkBoxSaveClipboard.AutoSize = true;
-            this.checkBoxSaveClipboard.Checked = true;
-            this.checkBoxSaveClipboard.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSaveClipboard.Location = new System.Drawing.Point(10, 136);
-            this.checkBoxSaveClipboard.Name = "checkBoxSaveClipboard";
-            this.checkBoxSaveClipboard.Size = new System.Drawing.Size(109, 17);
-            this.checkBoxSaveClipboard.TabIndex = 6;
-            this.checkBoxSaveClipboard.Text = "Save to clipboard";
-            this.checkBoxSaveClipboard.UseVisualStyleBackColor = true;
-            this.checkBoxSaveClipboard.CheckedChanged += new System.EventHandler(this.checkBoxSaveClipboard_CheckedChanged);
             // 
             // notifyIcon
             // 
@@ -173,18 +160,28 @@
             this.buttonSaveSnippetHotkey.Visible = false;
             this.buttonSaveSnippetHotkey.Click += new System.EventHandler(this.buttonSaveSnippetHotkey_Click);
             // 
+            // buttonSettings
+            // 
+            this.buttonSettings.Image = ((System.Drawing.Image)(resources.GetObject("buttonSettings.Image")));
+            this.buttonSettings.Location = new System.Drawing.Point(122, 10);
+            this.buttonSettings.Name = "buttonSettings";
+            this.buttonSettings.Size = new System.Drawing.Size(60, 40);
+            this.buttonSettings.TabIndex = 10;
+            this.buttonSettings.UseVisualStyleBackColor = true;
+            this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
+            // 
             // CaptureSave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(194, 161);
+            this.ClientSize = new System.Drawing.Size(194, 141);
+            this.Controls.Add(this.buttonSettings);
             this.Controls.Add(this.buttonSaveSnippetHotkey);
             this.Controls.Add(this.buttonSaveScreenshotHotkey);
             this.Controls.Add(this.buttonEditSnippetHotkey);
             this.Controls.Add(this.buttonEditScreenshotHotkey);
             this.Controls.Add(this.textSnippetHotkey);
             this.Controls.Add(this.labelHotkeySnippet);
-            this.Controls.Add(this.checkBoxSaveClipboard);
             this.Controls.Add(this.buttonOpenFolder);
             this.Controls.Add(this.textScreenshotHotkey);
             this.Controls.Add(this.labelHotkeyAllScreen);
@@ -205,7 +202,6 @@
         private System.Windows.Forms.Label labelHotkeyAllScreen;
         private System.Windows.Forms.TextBox textScreenshotHotkey;
         private System.Windows.Forms.Button buttonOpenFolder;
-        private System.Windows.Forms.CheckBox checkBoxSaveClipboard;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuTray;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuExit;
@@ -215,6 +211,7 @@
         private System.Windows.Forms.Button buttonEditSnippetHotkey;
         private System.Windows.Forms.Button buttonSaveScreenshotHotkey;
         private System.Windows.Forms.Button buttonSaveSnippetHotkey;
+        private System.Windows.Forms.Button buttonSettings;
     }
 }
 

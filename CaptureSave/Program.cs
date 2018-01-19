@@ -13,7 +13,7 @@ namespace CaptureSave
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CaptureSave(new DisplayError(), new HotkeysValidation()));
+            Application.Run(new CaptureSave(new DisplayMessage(), new HotkeysValidation()));
         }
     }
 }

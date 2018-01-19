@@ -22,11 +22,14 @@ namespace CaptureSave
             get { return Properties.Settings.Default.SnippetHotkey; }
             set { Properties.Settings.Default.SnippetHotkey = value; }
         }
-        private bool saveToClipboard = Properties.Settings.Default.SaveToClipboard;
+        private bool saveToClipboardOption
+        {
+            get { return Properties.Settings.Default.SaveToClipboard; }
+        }
         private int screenWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width);
         private int screenHeight = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height);
         private string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Images_CaptureSave\\";
-        private DisplayError _displayError;
+        private DisplayMessage _displayMessage;
         private HotkeysValidation _hotkeysValidation;
 
         protected bool AllowScreenshots {
@@ -68,12 +71,12 @@ namespace CaptureSave
             return key;
         }
 
-        public CaptureSave(DisplayError displayError, HotkeysValidation hotkeysValidation)
+        public CaptureSave(DisplayMessage displayMessage, HotkeysValidation hotkeysValidation)
         {
             InitializeComponent();
             LoadHotkeys();
             LoadSettings();
-            _displayError = displayError;
+            _displayMessage = displayMessage;
             _hotkeysValidation = hotkeysValidation;
         }
 
@@ -81,7 +84,6 @@ namespace CaptureSave
         {
             textScreenshotHotkey.Text = ScreenshotHotkeySettings;
             textSnippetHotkey.Text = SnippetHotkeySettings;
-            checkBoxSaveClipboard.Checked = saveToClipboard;
         }
 
         public void LoadHotkeys()
@@ -105,7 +107,7 @@ namespace CaptureSave
 
             bitmap.Save(filePath + name, ImageFormat.Png);
 
-            if (checkBoxSaveClipboard.Checked)
+            if (saveToClipboardOption)
                 Clipboard.SetImage(bitmap);
         }
 
@@ -204,18 +206,12 @@ namespace CaptureSave
             }
             else if (textBox.Text == "")
             {
-                _displayError.ShowEmptyStringError(textBox);
+                _displayMessage.ShowEmptyStringError(textBox);
             }
             else
             {
-                _displayError.ShowHotkeyInUseError(textBox);
+                _displayMessage.ShowHotkeyInUseError(textBox);
             }
-        }
-
-        private void checkBoxSaveClipboard_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.SaveToClipboard = checkBoxSaveClipboard.Checked;
-            Properties.Settings.Default.Save();
         }
 
         private void textHotkeys_KeyDown(object sender, KeyEventArgs e)
@@ -227,6 +223,12 @@ namespace CaptureSave
 
             if (_hotkeysValidation.Validate(e))
                 textHotkeys.Text = (new KeysConverter()).ConvertToString(e.KeyData);
+        }
+
+        private void buttonSettings_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm(new DisplayMessage());
+            settingsForm.ShowDialog();
         }
 
         #region WindowsAPI
