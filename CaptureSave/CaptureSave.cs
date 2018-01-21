@@ -71,13 +71,10 @@ namespace CaptureSave
             return key;
         }
 
-        public CaptureSave(DisplayMessage displayMessage, HotkeysValidation hotkeysValidation)
+        public void LoadHotkeys()
         {
-            InitializeComponent();
-            LoadHotkeys();
-            LoadSettings();
-            _displayMessage = displayMessage;
-            _hotkeysValidation = hotkeysValidation;
+            RegisterHotKey(this.Handle, SCREENSHOT_HOTKEY_ID, GetModifiers(ScreenshotHotkeySettings), (int)GetKey(ScreenshotHotkeySettings));
+            RegisterHotKey(this.Handle, SNIPPET_HOTKEY_ID, GetModifiers(SnippetHotkeySettings), (int)GetKey(SnippetHotkeySettings));
         }
 
         public void LoadSettings()
@@ -86,10 +83,21 @@ namespace CaptureSave
             textSnippetHotkey.Text = SnippetHotkeySettings;
         }
 
-        public void LoadHotkeys()
+        public void LoadTooltips()
         {
-            RegisterHotKey(this.Handle, SCREENSHOT_HOTKEY_ID, GetModifiers(ScreenshotHotkeySettings), (int)GetKey(ScreenshotHotkeySettings));
-            RegisterHotKey(this.Handle, SNIPPET_HOTKEY_ID, GetModifiers(SnippetHotkeySettings), (int)GetKey(SnippetHotkeySettings));
+            string text = "Allowed combinations: Alt+*, Ctrl+*, Shift+*, Alt+Shift+*, Ctrl+Alt+*, Ctrl+Alt+Shift+*";
+            toolTipHotkey.SetToolTip(textScreenshotHotkey, text);
+            toolTipHotkey.SetToolTip(textSnippetHotkey, text);
+        }
+
+        public CaptureSave(DisplayMessage displayMessage, HotkeysValidation hotkeysValidation)
+        {
+            InitializeComponent();
+            LoadHotkeys();
+            LoadSettings();
+            LoadTooltips();
+            _displayMessage = displayMessage;
+            _hotkeysValidation = hotkeysValidation;
         }
 
         protected void SaveImage(string imageType, Bitmap bitmap)

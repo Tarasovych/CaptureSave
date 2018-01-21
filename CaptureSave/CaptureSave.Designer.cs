@@ -43,6 +43,7 @@
             this.buttonSaveScreenshotHotkey = new System.Windows.Forms.Button();
             this.buttonSaveSnippetHotkey = new System.Windows.Forms.Button();
             this.buttonSettings = new System.Windows.Forms.Button();
+            this.toolTipHotkey = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuTray.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -170,6 +171,12 @@
             this.buttonSettings.UseVisualStyleBackColor = true;
             this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
+            // toolTipHotkey
+            // 
+            this.toolTipHotkey.AutoPopDelay = 5000;
+            this.toolTipHotkey.InitialDelay = 100;
+            this.toolTipHotkey.ReshowDelay = 100;
+            // 
             // CaptureSave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,6 +219,7 @@
         private System.Windows.Forms.Button buttonSaveScreenshotHotkey;
         private System.Windows.Forms.Button buttonSaveSnippetHotkey;
         private System.Windows.Forms.Button buttonSettings;
+        private System.Windows.Forms.ToolTip toolTipHotkey;
     }
 }
 
