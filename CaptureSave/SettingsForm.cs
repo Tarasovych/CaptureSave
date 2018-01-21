@@ -33,7 +33,7 @@ namespace CaptureSave
 
             if (key.GetValue(ProductName) == null)
             {
-                _displayMessage.RegistryError();
+                _displayMessage.Error("Registry error! Try to reinstall your programm!");
                 Application.Exit();
             }
             else
@@ -58,7 +58,7 @@ namespace CaptureSave
             }
             else if (key == null)
             {
-                _displayMessage.RegistryError();
+                _displayMessage.Error("Registry error! Try to reinstall your programm!");
                 Application.Exit();
             }
         }
@@ -68,12 +68,12 @@ namespace CaptureSave
             if (checkBoxRunAtStartup.Checked)
             {
                 key.SetValue(ProductName, Application.ExecutablePath);
-                _displayMessage.CustomNotification("Startup enabled!");
+                _displayMessage.Notification("Startup enabled!");
             }
             else
             {
                 key.SetValue(ProductName, String.Empty);
-                _displayMessage.CustomNotification("Startup disabled!");
+                _displayMessage.Notification("Startup disabled!");
             }
         }
     }

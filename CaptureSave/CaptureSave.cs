@@ -142,7 +142,7 @@ namespace CaptureSave
             if (Directory.Exists(filePath))
                 System.Diagnostics.Process.Start(filePath);
             else
-                MessageBox.Show("Try to make screenshots first.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _displayMessage.Error("Folder does not exist!");
         }
 
         private void CaptureSave_Resize(object sender, EventArgs e)
@@ -205,13 +205,9 @@ namespace CaptureSave
                 buttonEdit.Visible = true;
             }
             else if (textBox.Text == "")
-            {
-                _displayMessage.ShowEmptyStringError(textBox);
-            }
+                _displayMessage.Error("Enter hotkey!", textBox);
             else
-            {
-                _displayMessage.ShowHotkeyInUseError(textBox);
-            }
+                _displayMessage.Error(textBox.Text + " hotkey is already in use", textBox);
         }
 
         private void textHotkeys_KeyDown(object sender, KeyEventArgs e)

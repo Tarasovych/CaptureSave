@@ -5,9 +5,7 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptureSave", "CaptureSave\CaptureSave.csproj", "{4248CDCA-AA57-4821-8DF0-B616D831375C}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupCaptureSave", "SetupCaptureSave\SetupCaptureSave.vdproj", "{396BB791-579A-493C-B675-7F40032A10E3}"
-EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WiXSetupCaptureSave", "WiXSetupCaptureSave\WiXSetupCaptureSave.wixproj", "{651A0A02-21B6-47B0-83FA-206F1D06FEEB}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CaptureSaveSetup", "SetupCaptureSave\SetupCaptureSave.vdproj", "{396BB791-579A-493C-B675-7F40032A10E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,12 +29,6 @@ Global
 		{396BB791-579A-493C-B675-7F40032A10E3}.Release|Any CPU.ActiveCfg = Release
 		{396BB791-579A-493C-B675-7F40032A10E3}.Release|x86.ActiveCfg = Release
 		{396BB791-579A-493C-B675-7F40032A10E3}.Release|x86.Build.0 = Release
-		{651A0A02-21B6-47B0-83FA-206F1D06FEEB}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{651A0A02-21B6-47B0-83FA-206F1D06FEEB}.Debug|x86.ActiveCfg = Debug|x86
-		{651A0A02-21B6-47B0-83FA-206F1D06FEEB}.Debug|x86.Build.0 = Debug|x86
-		{651A0A02-21B6-47B0-83FA-206F1D06FEEB}.Release|Any CPU.ActiveCfg = Release|x86
-		{651A0A02-21B6-47B0-83FA-206F1D06FEEB}.Release|x86.ActiveCfg = Release|x86
-		{651A0A02-21B6-47B0-83FA-206F1D06FEEB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
